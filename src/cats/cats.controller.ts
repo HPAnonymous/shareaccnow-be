@@ -8,7 +8,7 @@ export class CatsController {
 
   @Get()
   async helloWorld() {
-    const strCompress = 'test compress'
+    const strCompress = 'test compress test '
     const metaDatas = strCompress.repeat(100000)
     return metaDatas
   }
