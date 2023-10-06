@@ -1,12 +1,22 @@
-import { Module } from '@nestjs/common'
+import { Global, Module } from '@nestjs/common'
 import { CatsController } from './cats.controller'
 import { CatsService } from './cats.service'
-import { catsProviders } from './cats.providers'
-import { DatabaseModule } from '../database/database.module'
+import { CatSchema } from './schemas/cat.schema'
+import { MongooseModule } from '@nestjs/mongoose'
 
+@Global()
 @Module({
-  imports: [DatabaseModule],
+  imports: [
+    MongooseModule.forFeature([
+      {
+        name: 'Cat',
+        schema: CatSchema,
+        collection: 'cats'
+      }
+    ])
+  ],
   controllers: [CatsController],
-  providers: [CatsService, ...catsProviders]
+  providers: [CatsService],
+  exports: [CatsService]
 })
 export class CatsModule {}
