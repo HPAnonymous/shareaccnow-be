@@ -1,9 +1,9 @@
 import mongoose from 'mongoose' // Erase if already required
 
 // Declare the Schema of the Mongo model
-const DOCUMENT_NAME = 'User'
+
 const COLLECTION_NAME = 'users'
-const userSchema = new mongoose.Schema(
+export const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -17,8 +17,7 @@ const userSchema = new mongoose.Schema(
       trim: true
     },
     mobile: {
-      type: String,
-      unique: true
+      type: String
     },
     password: {
       type: String,
@@ -44,7 +43,7 @@ const userSchema = new mongoose.Schema(
   }
 )
 
-userSchema.set('toJSON', {
+UserSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: function (_doc, ret) {
@@ -53,6 +52,3 @@ userSchema.set('toJSON', {
     delete ret.__v
   }
 })
-
-//Export the model
-module.exports = mongoose.model(DOCUMENT_NAME, userSchema)

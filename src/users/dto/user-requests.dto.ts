@@ -25,7 +25,7 @@ export class CreateUserDto {
 
   @ApiProperty()
   @IsOptional()
-  mobile: string
+  mobile?: string
 
   @ApiProperty({
     enum: UserStatus,
