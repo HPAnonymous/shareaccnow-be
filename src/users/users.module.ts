@@ -3,6 +3,7 @@ import { UsersService } from './users.service'
 import { UsersController } from './users.controller'
 import { UserSchema } from './schemas/user.schema'
 import { MongooseModule } from '@nestjs/mongoose'
+import { AccessSerive } from '@/utils/access.service'
 
 @Global()
 @Module({
@@ -16,7 +17,7 @@ import { MongooseModule } from '@nestjs/mongoose'
     ])
   ],
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [UsersService, AccessSerive],
   exports: [UsersService]
 })
 export class UsersModule {}

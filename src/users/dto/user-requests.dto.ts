@@ -13,7 +13,7 @@ export class CreateUserDto {
 
   @ApiProperty()
   @IsOptional()
-  name: string
+  name?: string
 
   @ApiProperty()
   @IsNotEmpty()
@@ -21,7 +21,7 @@ export class CreateUserDto {
 
   @ApiProperty()
   @IsOptional()
-  verified: boolean
+  verified?: boolean
 
   @ApiProperty()
   @IsOptional()
@@ -33,5 +33,5 @@ export class CreateUserDto {
   })
   @IsOptional()
   @IsEnum(UserStatus)
-  status: UserStatus
+  status?: UserStatus
 }
