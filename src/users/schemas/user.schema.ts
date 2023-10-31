@@ -1,4 +1,5 @@
 import mongoose from 'mongoose' // Erase if already required
+import { Role } from '../dto/general.dto'
 
 // Declare the Schema of the Mongo model
 
@@ -29,8 +30,13 @@ export const UserSchema = new mongoose.Schema(
       default: 'inactive'
     },
     roles: {
-      type: Array,
-      default: []
+      type: [
+        {
+          type: String,
+          enum: Object.values(Role)
+        }
+      ],
+      default: [Role.MEMBER]
     },
     verified: {
       type: Boolean,

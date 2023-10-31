@@ -4,6 +4,8 @@ import { UsersController } from './users.controller'
 import { UserSchema } from './schemas/user.schema'
 import { MongooseModule } from '@nestjs/mongoose'
 import { AccessSerive } from '@/utils/access.service'
+import { RolesGuard } from '@/common/guards/roles.guard'
+import { APP_GUARD } from '@nestjs/core'
 
 @Global()
 @Module({
@@ -17,7 +19,14 @@ import { AccessSerive } from '@/utils/access.service'
     ])
   ],
   controllers: [UsersController],
-  providers: [UsersService, AccessSerive],
+  providers: [
+    UsersService,
+    AccessSerive,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard
+    }
+  ],
   exports: [UsersService]
 })
 export class UsersModule {}

@@ -55,12 +55,6 @@ export class UsersService {
 
         // const publicKeyObject = crypto.createPublicKey(keyStore)
 
-        // if (!publicKeyObject)
-        //   throw new HttpException(
-        //     'publicKeyString error',
-        //     HttpStatus.BAD_REQUEST
-        //   )
-
         // public key get from mongodb not from generate
         const tokens = await this.accessService.createTokenPair(
           { userId: createdUser._id, email: createdUser.email },
