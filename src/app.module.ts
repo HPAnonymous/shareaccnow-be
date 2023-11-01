@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module'
 import { AuthModule } from './auth/auth.module'
 import { KeyTokenModule } from './key-token/key-token.module'
 import { ApiKeysModule } from './api-key/api-key.module'
+import { CmsModule } from './resources/cms/cms.module'
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { ApiKeysModule } from './api-key/api-key.module'
     UsersModule,
     AuthModule,
     KeyTokenModule,
-    ApiKeysModule
+    ApiKeysModule,
+    CmsModule
   ]
 })
 export class AppModule {}
