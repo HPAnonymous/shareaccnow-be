@@ -3,7 +3,11 @@ import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 import { Permission } from './interface/permission.interface'
 // import { CustomLogger } from '../common/logger/custom-logger'
-import { CreatePermissionDto, GetPermissionsDto } from './dto/requests.dto'
+import {
+  CreatePermissionDto,
+  GetPermissionsDto,
+  UpdatePermissionDto
+} from './dto/requests.dto'
 // import { UpdatePermissionDto } from './dto/requests.dto'
 
 @Injectable()
@@ -74,6 +78,33 @@ export class PermissionService {
     return await this.permissionModel.create(createPermisson)
   }
 
+  async uppdatePermission(
+    permissionId: number,
+    updatePermissionData: UpdatePermissionDto
+  ) {
+    // findById return query not promise
+    // .exec change to promise to use await
+    const checkPermission = await this.permissionModel
+      .findById({
+        _id: permissionId
+      })
+      .lean() // return to JS object not mongoosee ob, query fastest
+      .exec()
+
+    if (!checkPermission) {
+      throw new HttpException('Permission not exist', HttpStatus.NOT_FOUND)
+    }
+
+    // findByIdAndUpdater return object has been update if have new: true
+    return await this.permissionModel.findByIdAndUpdate(
+      permissionId,
+      updatePermissionData,
+      {
+        new: true
+      }
+    )
+  }
+
   //   async updatePermissionForAdmin(
   //     permissionId: string,
   //     updatePermissonDto: PermissionUpdateDto
@@ -111,13 +142,21 @@ export class PermissionService {
   async checkExistByKey(key: string) {
     const filter = { key: key, isDeleted: false }
 
-    const permission = await this.permissionModel.findOne(filter)
+    const permission = await this.permissionModel.findOne(filter).lean()
 
     if (permission) {
       return true
     }
 
     return false
+  }
+
+  async getRoleByPermissionId(permissionId: number) {
+    const permission = await this.permissionModel.findById(permissionId).exec()
+
+    if (permission) {
+      return permission.roles
+    }
   }
 
   //   async checkPermission(roleId: number, key: string) {

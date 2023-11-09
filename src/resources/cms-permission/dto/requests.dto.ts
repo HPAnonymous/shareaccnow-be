@@ -41,6 +41,10 @@ export class UpdatePermissionDto {
   @IsNotEmpty()
   @IsOptional()
   key?: string
+
+  @ApiProperty()
+  @IsOptional()
+  roles?: Array<string>
 }
 
 export class GetPermissionsDto extends PaginationQueriesDto {
